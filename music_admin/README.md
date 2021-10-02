@@ -1,4 +1,4 @@
-# vue_test
+# music_admin
 
 ## Project setup
 ```
