@@ -11,10 +11,10 @@
 
 - 后台登录页面:heavy_check_mark:
   - 登录细节:x:
-
 - 后台首页总体布局:heavy_check_mark:
-
 - 前台首页:x:
+- 歌曲详情页
+- 排行榜
 
 
 
@@ -66,9 +66,13 @@ dist文件——vue文件打包编译成的html+css+js文件，需要部署在�
 
 **后台登录页面adminlogin**
 
-![image-20211002203852002](C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20211002203852002.png)
+![image-20211002203852002](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/image-20211002203852002.png)
 
 **后台首页adminindex**
 
-![image-20211002204456613](C:\Users\QAQWQ\AppData\Roaming\Typora\typora-user-images\image-20211002204456613.png)
+![image-20211002204456613](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/image-20211002204456613.png)
+
+
+
+
 
