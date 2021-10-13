@@ -15,41 +15,39 @@
             ></el-input>
             <div class="login-info">
               <!-- <el-avatar :size="40" :src="circleUrl"></el-avatar> -->
-              <div><a href="">登录</a>|<a href="">注册</a></div>
+              <div>
+                <router-link to="/login">登录</router-link>|<a href="">注册</a>
+              </div>
             </div>
           </div>
         </ul>
         <ul class="nav2">
-          <li><a href="">首页</a></li>
+          <li><router-link to="/default">首页</router-link></li>
+          <li><router-link :to="{ name: 'singers' }">歌手</router-link></li>
           <li><a href="">排行榜</a></li>
         </ul>
       </div>
     </el-header>
     <el-main>
-      <div class="banner">
-        <Banner></Banner>
-      </div>
-      <div class="rank">
-        <Rank></Rank>
-      </div>
+      <router-view> </router-view>
     </el-main>
     <el-footer>
       Copyright © 2021 GoodGoodStudy DayDayUp. All Rights Reserved.
     </el-footer>
-    <Player></Player>
+    <Player> </Player>
   </el-container>
 </template>
 
 <script>
-import Banner from "@/components/Banner";
-import Rank from "@/components/Rank";
+// import Banner from "@/components/Banner";
+// import Rank from "@/components/Rank";
 import Player from "@/components/Player/Player";
-
+import axios from "axios";
 export default {
   name: "Index",
   components: {
-    Banner,
-    Rank,
+    // Banner,
+    // Rank,
     Player,
   },
   data() {
@@ -59,10 +57,23 @@ export default {
       search: "",
     };
   },
+  mounted() {
+    axios
+      .get("/user/userinfo")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
 };
 </script>
 
 <style lang='less'>
+// 定义最大宽度
+@max_width: 1200px;
+@min_width: 960px;
 .el-container {
   text-align: center;
 }
@@ -74,9 +85,15 @@ export default {
 }
 .el-main {
   margin: 0 auto;
-  width: 960px;
+  width: 100%;
+  max-width: @max_width;
+  min-width: @min_width;
   min-height: 800px;
   overflow: hidden !important;
+  .banner {
+    position: relative;
+    z-index: -10;
+  }
 }
 .el-footer {
   display: flex;
@@ -95,7 +112,9 @@ export default {
 }
 .nav1 {
   margin: 0 auto;
-  width: 960px;
+  width: 100%;
+  max-width: @max_width;
+  min-width: @min_width;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -139,11 +158,8 @@ export default {
   display: flex;
   flex-direction: row;
   font-size: 16px;
-  //   height: 50px;
-  //   line-height: 50px;
   align-items: center;
   li {
-    background-color: rgba(210, 157, 157, 0.745);
     border-radius: 10%;
     padding: 2px 10px;
     margin-left: 20px;

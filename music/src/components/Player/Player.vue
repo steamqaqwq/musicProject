@@ -1,5 +1,11 @@
 <template>
-  <div class="player-bar lock">
+  <div :class="playerBarClass" @mouseleave="hoverShowBar(0)">
+    <div class="lock" @mouseenter="hoverShowBar(1)">
+      <svg-icon
+        @click.native="lock"
+        :icon-class="lockAbout.lockIcon"
+      ></svg-icon>
+    </div>
     <div class="control">
       <div class="music_cover">
         <img :src="coverImg" alt="" />
@@ -49,7 +55,11 @@
         @click.native="changeMusicMode"
         :icon-class="selectMusicMode(musicMode)"
       ></svg-icon>
-      <svg-icon icon-class="icon-xihuan"></svg-icon>
+      <svg-icon
+        class="favourite"
+        icon-class="icon-xihuan1"
+        onchange-avg="icon-xihuan-tianchong"
+      ></svg-icon>
     </div>
   </div>
 </template>
@@ -64,8 +74,18 @@ export default {
   data() {
     return {
       player: undefined,
+      playerBarClass: {
+        "player-bar": true,
+        islock: false,
+        unlock: true,
+      },
       playIcon: "icon-Player",
       isplay: false,
+      lockAbout: {
+        isLock: false,
+        lockIcon: "icon-unlock",
+      },
+      favAbout: {},
       listAbout: {
         isShow: false,
       },
@@ -140,6 +160,37 @@ export default {
   },
   computed: {},
   methods: {
+    // 监听图标改变 并触发事件
+    // showChild(v) {
+    //   if (v == 1) {
+    //     console.log("触发事件1");
+    //   } else {
+    //     console.log("触发事件2");
+    //   }
+    // },
+    lock() {
+      this.$set(this.listAbout, "isLock", !this.listAbout.isLock);
+      this.lockAbout.lockIcon = this.listAbout.isLock
+        ? "icon-lock"
+        : "icon-unlock";
+      this.$set(this.playerBarClass, "islock", !this.playerBarClass.islock);
+      this.$set(this.playerBarClass, "unlock", !this.playerBarClass.unlock);
+    },
+    hoverShowBar(ishover) {
+      if (this.listAbout.isLock) {
+        this.$set(this.playerBarClass, "islock", true);
+        this.$set(this.playerBarClass, "unlock", false);
+        return;
+      }
+      if (ishover) {
+        this.$set(this.playerBarClass, "islock", true);
+        this.$set(this.playerBarClass, "unlock", false);
+      } else {
+        this.$set(this.playerBarClass, "islock", false);
+        this.$set(this.playerBarClass, "unlock", true);
+      }
+    },
+    //播放相关函数
     mplay({ ...args }) {
       this.curIndex = args.index;
       this.isplay = true;
@@ -163,10 +214,6 @@ export default {
         ? this.curIndex--
         : (this.curIndex = this.musicList.length - 1);
     },
-    getPlayer(Obj) {
-      this.player = Obj.player;
-      this.volume = Obj.volume;
-    },
     selectMusicMode(mode) {
       switch (mode) {
         case 1:
@@ -183,6 +230,7 @@ export default {
       this.musicMode++;
       if (this.musicMode > 3) this.musicMode = 1;
     },
+    favourite() {},
   },
   watch: {
     isplay(cur) {
@@ -195,7 +243,6 @@ export default {
       this.coverImg = this.musicList[v].coverSrc;
       this.mplay({ index: v });
     },
-    musicMode(v) {},
   },
   mounted() {
     this.player = this.$refs.player;
@@ -209,15 +256,38 @@ export default {
   width: 100%;
   height: 60px;
   position: fixed;
-  bottom: 0;
-  background-color: rgba(255, 192, 203, 0.627);
-  box-shadow: 1px 0px 3px 1px;
+  bottom: -60px;
+  background-color: #fff;
+  box-shadow: 1px 2px 3px 1px;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  .lock {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    right: 90px;
+    top: -24px;
+    box-shadow: 0px -2px 5px -3px;
+    background-color: #fff;
+    border-radius: 40px 40px 0 0;
+    padding: 5px;
+    text-align: center;
+    .svg-icon {
+      font-size: 20px;
+    }
+  }
 }
 
+.islock {
+  bottom: 0;
+  transition: 0.4s ease-out;
+}
+.unlock {
+  bottom: -60px;
+  transition: bottom 0.4s ease-out;
+}
 .control {
   display: flex;
   align-items: center;
@@ -227,12 +297,7 @@ export default {
   height: 100%;
   background-color: rgba(255, 255, 255, 0.483);
 }
-.lock {
-  visibility: visible;
-}
-.unlock {
-  visibility: hidden;
-}
+
 .svg-icon {
   font-size: 24px;
   color: #000;
@@ -242,8 +307,8 @@ export default {
 .svg-icon:nth-of-type(2) {
   font-size: 30px;
 }
-.svg-icon:nth-of-type(-n + 3):hover {
-  color: #fff;
+.control .svg-icon:nth-of-type(-n + 3):hover {
+  color: rgb(64 158 255);
 }
 
 .music_cover {

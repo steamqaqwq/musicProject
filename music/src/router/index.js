@@ -1,24 +1,41 @@
 import VueRouter from 'vue-router'
-// import Login from '@/pages/Login'
+import Login from '@/components/Login'
+import Default from '@/components/Default'
 import Index from '@/pages/Index'
-
+import Singers from '@/components/Singers'
 const router = new VueRouter({
     mode:'history',
     routes:[
-        // {
-        //     path:'/adminlogin',
-        //     component:Login,
-        //     meta:{
-        //         title:'后台管理登录界面'
-        //     }
-        // },
+        {
+            path:'/login',
+            component:Login,
+            meta:{
+                title:'登录界面'
+            }
+        },
         {
             path:'/',
             component:Index,
             meta:{
                 title:'首页',
                 isAuth:false
-            }
+            },
+            redirect:'/default',
+            children:[
+                {
+					path:'default',
+					component:Default,
+                    meta:{
+                        title:'首页',
+                        isAuth:false
+                    },
+				},
+				{
+                    name:'singers',//给路由命名
+					path:'singers',
+					component:Singers,
+				}
+			]
         }
     ]
 })
