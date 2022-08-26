@@ -1,78 +1,26 @@
 # MusicProject
 
-音乐网站:musical_note:
+**音乐网站**:musical_note:
 
-- 前端：vue2+vuex+elementUi
+- 前端：Vue2+Vuex+ElementUi+Vue Router+Echarts
 - 后端 ：java+SpringBoot
 
+描述：完成音乐网站基本功能，如音乐播放器，搜索，排行榜，专辑，点赞，收藏等。并通过后台管理系统对用户，歌曲，歌手等进行基本管理。
 
+**部分页面展示**
 
-前端进度：
+- 前台：
 
-- 后台登录页面:heavy_check_mark:
-  - 登录细节:x:
-- 后台首页总体布局:heavy_check_mark:
-- 前台首页:x:
-- 歌曲详情页
-- 排行榜
+![image-20220826152613265](https://mypic-bucket.oss-cn-hangzhou.aliyuncs.com/202208261537043.png)
 
+![image-20220826152625624](https://mypic-bucket.oss-cn-hangzhou.aliyuncs.com/202208261537045.png)
 
+![image-20220826152642512](https://mypic-bucket.oss-cn-hangzhou.aliyuncs.com/202208261537046.png)
 
-创建vue项目
+![image-20220826152721102](https://mypic-bucket.oss-cn-hangzhou.aliyuncs.com/202208261537047.png)
 
-前提安装node.js
+- 后台管理：
 
-- ```vue create projectName```
+  ![image-20220826152825488](https://mypic-bucket.oss-cn-hangzhou.aliyuncs.com/202208261537048.png)  
 
-npm安装依赖
-
-```js
-npm install //默认安装package.json中的依赖
-
-npm get registry //查看npm源地址
-npm config set registry http://registry.npm.taobao.org //设置淘宝镜像源
-//项目需要的依赖
-// -S --save 生产环境依赖
-npm i vuex -S
-npm i vue-router -S
-npm i axios -S
-npm i element-ui -S
-// -D --save-dev 开发环境依赖
-npm i less -D
-npm i less-loader@4.1.0 -D
-```
-
-package.json 关闭eslint变量未使用提示
-
-- 1 警告  2 错误  0 关闭
-
-```
-"rules": {
-      "no-unused-vars": [
-        1,
-        {
-          "vars": "all",
-          "args": "after-used"
-        }
-      ]
-    }
-```
-
-dist文件——vue文件打包编译成的html+css+js文件，需要部署在服务器才能打开
-
-
-
-### **目前效果 （暂定）**
-
-**后台登录页面adminlogin**
-
-![image-20211002203852002](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/image-20211002203852002.png)
-
-**后台首页adminindex**
-
-![image-20211002204456613](https://gitee.com/steamqaqwq/drawingbed/raw/master/markdown/image-20211002204456613.png)
-
-
-
-
-
+  ![image-20220826152912703](https://mypic-bucket.oss-cn-hangzhou.aliyuncs.com/202208261537049.png) 
